@@ -34,7 +34,7 @@ const BookingSchema = new Schema<IBooking>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Validate that the referenced event exists
@@ -47,7 +47,7 @@ BookingSchema.pre("save", async function () {
 
       if (!eventExists) {
         const error = new Error(
-          `Event with ID ${booking.eventId} does not exist`
+          `Event with ID ${booking.eventId} does not exist`,
         );
         error.name = "ValidationError";
         throw error;
@@ -58,7 +58,7 @@ BookingSchema.pre("save", async function () {
       }
 
       const validationError = new Error(
-        "Invalid event ID format or database error"
+        "Invalid event ID format or database error",
       );
       validationError.name = "ValidationError";
       throw validationError;
@@ -86,10 +86,9 @@ BookingSchema.index(
   {
     unique: true,
     name: "uniq_event_email",
-  }
+  },
 );
 
-const Booking =
-  models.Booking || model<IBooking>("Booking", BookingSchema);
+const Booking = models.Booking || model<IBooking>("Booking", BookingSchema);
 
 export default Booking;
